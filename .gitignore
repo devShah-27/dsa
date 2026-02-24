@@ -39,3 +39,10 @@
 
 # debug information files
 *.dwo
+
+# .vscode folder
+.vscode/
+
+# Input and Output files
+input.txt
+output.txt
