@@ -17,9 +17,8 @@ using namespace std;
 //         arr[i] = temp[i];
 // }
 
-// ================= Better (In-place sorting) ================
+// ================= Better (In-place reversal) ================
 // Uses two-pointer approach
-
 void swapElements(int arr[], int left, int right)
 {
     int temp = arr[right];
