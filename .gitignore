@@ -46,3 +46,6 @@
 # Input and Output files
 input.txt
 output.txt
+
+# DS store files
+.DS_Store
