@@ -49,3 +49,12 @@ output.txt
 
 # DS store files
 .DS_Store
+
+# C++ executables without extension
+a.out
+main
+
+# build folders
+build/
+bin/
+out/
