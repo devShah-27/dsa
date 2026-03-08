@@ -91,9 +91,14 @@ vector<int> twoSum(vector<int> &nums, int target) // TC -> O(N*log(N)), SC -> O(
 
 int main()
 {
-    vector<int> input = {-6, 7, 1, -7, 6, 2};
+    vector<int> input = {
+        34, -21, 7, 18, -5, 42, 11, -9, 26, 3,
+        -14, 8, 19, -30, 25, 16, -2, 41, -11, 6,
+        13, -7, 29, -18, 22, 4, -25, 31, 10, -3,
+        27, -15, 36, 2, -6, 21, -12, 38, 5, -8,
+        14, 24, -4, 9, -16, 32, -10, 20, -13, 17};
 
-    int target = 3;
+    int target = 23;
 
     vector<int> ans = twoSum(input, target);
 
