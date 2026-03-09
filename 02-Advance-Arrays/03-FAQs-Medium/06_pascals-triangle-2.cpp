@@ -1,12 +1,18 @@
-// Given an integer r, return all the values in the rth row (1-indexed) in Pascal's Triangle in correct order.
-
-// In Pascal's triangle:
-
-// - The first row has one element with a value of 1.
-
-// - Each row has one more element in it than its previous row.
-
-// - The value of each element is equal to the sum of the elements directly above it when arranged in a triangle format.
+// Problem:
+// Given an integer r, return the r-th row (1-indexed) of Pascal's Triangle.
+//
+// Key observation:
+// The r-th row contains the binomial coefficients:
+//
+// C(r-1,0), C(r-1,1), C(r-1,2) ... C(r-1,r-1)
+//
+// Instead of computing factorials, we generate each element using
+// the recurrence relation:
+//
+// C(n, k) = C(n, k-1) * (n - k + 1) / k
+//
+// Time Complexity:  O(r)
+// Space Complexity: O(r)
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -15,15 +21,16 @@ vector<int> pascalTriangleII(int r)
 {
     vector<int> pascalRow;
 
-    int element = 1;
+    long long element = 1; // First element is always 1
+    pascalRow.push_back(element);
 
-    pascalRow.emplace_back(element);
-
+    // Generate remaining elements using binomial recurrence
     for (int i = 1; i < r; i++)
     {
         element = element * (r - i);
         element = element / i;
-        pascalRow.emplace_back(element);
+
+        pascalRow.push_back(element);
     }
 
     return pascalRow;
@@ -37,8 +44,8 @@ int main()
     vector<int> pascalRow = pascalTriangleII(row);
 
     cout << "Pascal row at " << row << ": ";
-    for (int it : pascalRow)
-        cout << it << " ";
+    for (int val : pascalRow)
+        cout << val << " ";
 
     return 0;
 }
