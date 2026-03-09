@@ -1,34 +1,70 @@
-// Given an N * N 2D integer matrix, rotate the matrix by 90 degrees clockwise.
-
-// The rotation must be done in place, meaning the input 2D matrix must be modified directly.
+// Problem:
+// Given an N × N matrix, rotate the matrix by 90 degrees clockwise.
+//
+// Constraint:
+// • The rotation must be done in-place (no extra matrix allowed).
 
 #include <bits/stdc++.h>
 using namespace std;
 
-// ========= BRUTE FORCE (Place each element in its correct position) =========
-// void rotateMatrix(vector<vector<int>> &matrix) // TC -> O(N^2), SC -> O(N^2)
+// ================================================================
+// BRUTE FORCE APPROACH
+//
+// Idea:
+// • Create a new matrix
+// • Map each element (i, j) → (j, n - 1 - i)
+// • Copy the result back into the original matrix
+//
+// Time Complexity:  O(N²)
+// Space Complexity: O(N²)
+// ================================================================
+
+// void rotateMatrix(vector<vector<int>> &matrix)
 // {
 //     int n = matrix.size();
-
 //     vector<vector<int>> ans(n, vector<int>(n));
-
-//     for (int i = 0; i < n; i++) // O(N)
-//         for (int j = 0; j < n; j++) // O(N)
-//             ans[j][n - i - 1] = matrix[i][j];
-
-//     for (int i = 0; i < n; i++) // O(N)
+//
+//     for (int i = 0; i < n; i++)
+//         for (int j = 0; j < n; j++)
+//             ans[j][n - 1 - i] = matrix[i][j];
+//
+//     for (int i = 0; i < n; i++)
 //         matrix[i] = ans[i];
 // }
 
-// ========= OPTIMAL (Transpose matrix and reverse each row) =========
+// ================================================================
+// OPTIMAL APPROACH (IN-PLACE ROTATION)
+//
+// Key observation:
+// A 90° clockwise rotation can be decomposed into two operations:
+//
+// 1. Transpose the matrix
+//    Convert rows into columns: matrix[i][j] ↔ matrix[j][i]
+//
+// 2. Reverse each row
+//    This shifts elements to their correct rotated position
+//
+// Example:
+//
+// Original        After Transpose       After Row Reverse
+// 1 2 3           1 4 7                 7 4 1
+// 4 5 6   →       2 5 8        →        8 5 2
+// 7 8 9           3 6 9                 9 6 3
+//
+// Time Complexity:  O(N²)
+// Space Complexity: O(1)
+// ================================================================
+
 void rotateMatrix(vector<vector<int>> &matrix)
 {
     int n = matrix.size();
 
+    // Step 1: Transpose matrix (swap across diagonal)
     for (int i = 0; i < n; i++)
         for (int j = i + 1; j < n; j++)
             swap(matrix[i][j], matrix[j][i]);
 
+    // Step 2: Reverse each row
     for (auto &row : matrix)
         reverse(row.begin(), row.end());
 }
@@ -47,24 +83,21 @@ int main()
         {81, 82, 83, 84, 85, 86, 87, 88, 89, 90},
         {91, 92, 93, 94, 95, 96, 97, 98, 99, 100}};
 
-    cout << "Before rotation: " << endl;
-    for (auto lvl1Elem : input)
+    cout << "Before rotation:\n";
+    for (auto &row : input)
     {
-        for (auto lvl2Elem : lvl1Elem)
-            cout << lvl2Elem << " ";
-
+        for (auto val : row)
+            cout << val << " ";
         cout << endl;
     }
 
     rotateMatrix(input);
 
-    cout << endl
-         << "After rotation: " << endl;
-    for (auto lvl1Elem : input)
+    cout << "\nAfter rotation:\n";
+    for (auto &row : input)
     {
-        for (auto lvl2Elem : lvl1Elem)
-            cout << lvl2Elem << " ";
-
+        for (auto val : row)
+            cout << val << " ";
         cout << endl;
     }
 
