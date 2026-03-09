@@ -1,25 +1,40 @@
-// Given an integer array nums. Return all triplets such that:
-// - i != j, i != k, and j != k
-// - nums[i] + nums[j] + nums[k] == 0.
-
-// Notice that the solution set must not contain duplicate triplets. One element can be a part of multiple triplets. The output and the triplets can be returned in any order.
+// Problem:
+// Given an integer array nums, return all unique triplets [a, b, c] such that:
+//
+// nums[a] + nums[b] + nums[c] == 0
+//
+// Constraints:
+// • All indices must be distinct
+// • Triplets must be unique (no duplicates)
+// • Order of output does not matter
 
 #include <bits/stdc++.h>
 #include <chrono>
 using namespace std;
 
-// ====== BRUTE FORCE (Use 3 loops to identify triplets in O(N^3) time complexity) ======
-// vector<vector<int>> threeSum(vector<int> &nums) // TC -> O(N^# * log(No. of unique triplets)), SC ->(2 * No. of unique triplets)
+// ================================================================
+// BRUTE FORCE APPROACH
+//
+// Idea:
+// • Try every combination of three indices
+// • If their sum is zero, store the triplet
+// • Sort each triplet so duplicates look identical
+// • Use a set to automatically remove duplicates
+//
+// Time Complexity:  O(N³ * log(unique_triplets))
+// Space Complexity: O(unique_triplets)
+// ================================================================
+
+// vector<vector<int>> threeSum(vector<int> &nums)
 // {
 //     int n = nums.size();
-
 //     set<vector<int>> tripletSet;
 
-//     for (int i = 0; i < n; i++) // O(N)
+//     for (int i = 0; i < n; i++)
 //     {
-//         for (int j = i + 1; j < n; j++) // O(N)
+//         for (int j = i + 1; j < n; j++)
 //         {
-//             for (int k = j + 1; k < n; k++) // O(N)
+//             for (int k = j + 1; k < n; k++)
 //             {
 //                 if (nums[i] + nums[j] + nums[k] == 0)
 //                 {
@@ -31,34 +46,39 @@ using namespace std;
 //         }
 //     }
 
-//     vector<vector<int>> ans(tripletSet.begin(), tripletSet.end());
-
-//     return ans;
+//     return vector<vector<int>>(tripletSet.begin(), tripletSet.end());
 // }
 
-// ====== BETTER (Use hashing to identify triplets in O(1) time complexity) ======
-// vector<vector<int>> threeSum(vector<int> &nums) // TC -> O(N^2 * log(No. of unique triplets)), SC ->(2 * No. of unique triplets) + O(N)
+// ================================================================
+// BETTER APPROACH (HASHING)
+//
+// Idea:
+// • Fix the first element (i)
+// • Reduce the problem to finding two numbers whose sum equals -nums[i]
+// • Use a hash set to track previously seen elements
+// • Store sorted triplets in a set to avoid duplicates
+//
+// Time Complexity:  O(N² * log(unique_triplets))
+// Space Complexity: O(N) + O(unique_triplets)
+// ================================================================
+
+// vector<vector<int>> threeSum(vector<int> &nums)
 // {
 //     int n = nums.size();
-
 //     set<vector<int>> tripletSet;
 
-//     for (int i = 0; i < n; i++) // O(N)
+//     for (int i = 0; i < n; i++)
 //     {
 //         set<int> hash;
 
-//         for (int j = i + 1; j < n; j++) // O(N)
+//         for (int j = i + 1; j < n; j++)
 //         {
-//             int k = -(nums[i] + nums[j]);
+//             int third = -(nums[i] + nums[j]);
 
-//             if (hash.find(k) != hash.end())
+//             if (hash.find(third) != hash.end())
 //             {
-//                 vector<int> temp = {nums[i],
-//                                     nums[j],
-//                                     k};
-
+//                 vector<int> temp = {nums[i], nums[j], third};
 //                 sort(temp.begin(), temp.end());
-
 //                 tripletSet.insert(temp);
 //             }
 
@@ -66,30 +86,44 @@ using namespace std;
 //         }
 //     }
 
-//     vector<vector<int>> ans(tripletSet.begin(), tripletSet.end());
-
-//     return ans;
+//     return vector<vector<int>>(tripletSet.begin(), tripletSet.end());
 // }
 
-// ====== OPTIMAL (Use 2-pointer approach to identify triplets) ======
-vector<vector<int>> threeSum(vector<int> &nums) // TC -> O(N^2) + O(N*log(N)), SC -> O(1)
+// ================================================================
+// OPTIMAL APPROACH (SORT + TWO POINTERS)
+//
+// Idea:
+// • Sort the array
+// • Fix one element (i)
+// • Use two pointers (j, k) to find the remaining pair
+// • Skip duplicates to ensure unique triplets
+//
+// Time Complexity:  O(N²)
+// Space Complexity: O(1) extra (excluding output)
+// ================================================================
+
+vector<vector<int>> threeSum(vector<int> &nums)
 {
     int n = nums.size();
 
-    sort(nums.begin(), nums.end()); // O(N*log(N))
+    // Sorting enables two-pointer traversal and easy duplicate handling
+    sort(nums.begin(), nums.end());
 
     vector<vector<int>> ans;
 
-    for (int i = 0; i < n; i++) // O(N)
+    for (int i = 0; i < n; i++)
     {
+        // Skip duplicate values for the first element
         if (i > 0 && nums[i] == nums[i - 1])
             continue;
 
-        int j = i + 1, k = n - 1;
+        int j = i + 1;
+        int k = n - 1;
 
-        while (j < k) // O(N)
+        while (j < k)
         {
-            int sum = nums[i] + nums[j] + nums[k];
+            // Use long long to avoid integer overflow
+            long long sum = (long long)nums[i] + nums[j] + nums[k];
 
             if (sum < 0)
             {
@@ -101,13 +135,16 @@ vector<vector<int>> threeSum(vector<int> &nums) // TC -> O(N^2) + O(N*log(N)), S
             }
             else
             {
-                vector<int> triplet = {nums[i], nums[j], nums[k]};
-                ans.emplace_back(triplet);
-                j++, k--;
+                ans.emplace_back(vector<int>{nums[i], nums[j], nums[k]});
 
+                j++;
+                k--;
+
+                // Skip duplicate values for second element
                 while (j < k && nums[j] == nums[j - 1])
                     j++;
 
+                // Skip duplicate values for third element
                 while (j < k && nums[k] == nums[k + 1])
                     k--;
             }
