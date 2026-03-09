@@ -1,71 +1,102 @@
-// Given an integer n, return the first n (1-Indexed) rows of Pascal's triangle.
+// Problem:
+// Given an integer n, return the first n rows of Pascal's Triangle.
+//
+// Properties of Pascal's Triangle:
+// • The first and last element of every row is 1
+// • Each element is the sum of the two elements above it
+// • Row r contains the binomial coefficients: C(r-1, 0) ... C(r-1, r-1)
 
-// In Pascal's triangle:
-// - The first row has one element with a value of 1.
-// - Each row has one more element in it than its previous row.
-// - The value of each element is equal to the sum of the elements directly above it when arranged in a triangle format.
 #include <bits/stdc++.h>
 using namespace std;
 
-// ======== BRUTE FORCE (Use Pascal's Triangle 1 method) ========
-// int NcR(int n, int r) // TC -> O(r)  (or O(N) upper bound), SC -> O(1)
+// ================================================================
+// BRUTE FORCE APPROACH
+//
+// Idea:
+// Each element of Pascal's Triangle is a binomial coefficient:
+//
+// element(row, col) = C(row-1, col-1)
+//
+// So we compute each value using the nCr formula.
+//
+// Time Complexity:  O(N³)
+// Space Complexity: O(N²)
+// ================================================================
+
+// int NcR(int n, int r)
 // {
 //     int ans = 1;
-
-//     for (int col = 0; col < r; col++) // O(N)
+//
+//     // Compute nCr using iterative formula
+//     for (int col = 0; col < r; col++)
 //     {
 //         ans = ans * (n - col);
 //         ans = ans / (col + 1);
 //     }
-
+//
 //     return ans;
 // }
-
-// vector<vector<int>> pascalTriangleIII(int n) // TC -> O(N^3), SC -> O(N^2)
+//
+// vector<vector<int>> pascalTriangleIII(int n)
 // {
 //     vector<vector<int>> ans;
-
-//     for (int row = 1; row <= n; row++) // O(N)
+//
+//     for (int row = 1; row <= n; row++)
 //     {
-//         vector<int> tempList;
-
-//         for (int col = 1; col <= row; col++) // O(N)
+//         vector<int> temp;
+//
+//         for (int col = 1; col <= row; col++)
 //         {
-//             int element = NcR(row - 1, col - 1); // O(N)
-//             tempList.emplace_back(element);
+//             temp.push_back(NcR(row - 1, col - 1));
 //         }
-
-//         ans.emplace_back(tempList);
+//
+//         ans.push_back(temp);
 //     }
-
+//
 //     return ans;
 // }
 
-// ======== OPTIMAL (Use Pascal's Triangle 2 method) ========
-vector<int> generateRow(int row) // TC -> O(row), SC -> O(row)
+// ================================================================
+// OPTIMAL APPROACH
+//
+// Key Observation:
+// Consecutive elements in a row follow the relation:
+//
+// C(n, r) = C(n, r-1) * (n - r + 1) / r
+//
+// This allows generating a full row in O(row) time without
+// recomputing factorials or calling nCr repeatedly.
+//
+// Time Complexity:  O(N²)
+// Space Complexity: O(N²)
+// ================================================================
+
+// Generates a single row of Pascal's Triangle
+vector<int> generateRow(int row)
 {
     vector<int> pascalRow;
 
-    int ans = 1;
+    int val = 1;
+    pascalRow.push_back(val); // First element is always 1
 
-    pascalRow.emplace_back(ans);
-
-    for (int i = 1; i < row; i++) // O(row)
+    for (int i = 1; i < row; i++)
     {
-        ans = ans * (row - i);
-        ans = ans / i;
-        pascalRow.emplace_back(ans);
+        val = val * (row - i);
+        val = val / i;
+
+        pascalRow.push_back(val);
     }
 
     return pascalRow;
 }
 
-vector<vector<int>> pascalTriangleIII(int n) // TC -> O(N^2), SC -> O(N^2)
+// Generates the first n rows of Pascal's Triangle
+vector<vector<int>> pascalTriangleIII(int n)
 {
     vector<vector<int>> ans;
 
-    for (int row = 1; row <= n; row++) // O(N)
-        ans.emplace_back(generateRow(row)); // O(N)
+    for (int row = 1; row <= n; row++)
+        ans.push_back(generateRow(row));
 
     return ans;
 }
@@ -77,10 +108,10 @@ int main()
 
     vector<vector<int>> ans = pascalTriangleIII(input);
 
-    for (auto lvl1Elem : ans)
+    for (auto &row : ans)
     {
-        for (auto lvl2Elem : lvl1Elem)
-            cout << lvl2Elem << " ";
+        for (auto val : row)
+            cout << val << " ";
 
         cout << endl;
     }
