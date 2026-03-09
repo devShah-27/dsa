@@ -1,7 +1,6 @@
 // Problem:
-// Given an array nums consisting only of 0s, 1s, and 2s,
-// sort the array in non-decreasing order.
-//
+// Given an array nums consisting only of 0s, 1s, and 2s, sort the array in non-decreasing order.
+
 // The sorting must be done in-place without using extra space.
 
 #include <bits/stdc++.h>
@@ -12,8 +11,7 @@ using namespace std;
 //
 // Idea:
 // Simply use the built-in sorting function.
-// Since the array contains only integers, the STL sort
-// will correctly arrange them in non-decreasing order.
+// Since the array contains only integers, the STL sort will correctly arrange them in non-decreasing order.
 //
 // Time Complexity:  O(N log N)
 // Space Complexity: O(1)
@@ -81,8 +79,7 @@ using namespace std;
 //   [mid ... high]  -> unknown elements
 //   [high+1 ... n-1]-> all 2s
 //
-// Traverse the array using 'mid' and place elements
-// in the correct region using swaps.
+// Traverse the array using 'mid' and place elements in the correct region using swaps.
 //
 // Time Complexity:  O(N)
 // Space Complexity: O(1)
