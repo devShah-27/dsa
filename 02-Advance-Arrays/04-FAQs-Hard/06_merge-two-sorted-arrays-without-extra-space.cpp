@@ -1,11 +1,10 @@
-// ===================== PROBLEM =====================
+// Problem:
 // Given two sorted integer arrays nums1 and nums2 (sorted in non-decreasing order),
 // merge nums2 into nums1 so that nums1 becomes a single sorted array.
 //
 // nums1 has size m + n where the first m elements are valid values and the
 // remaining n positions are placeholders (0s) to accommodate nums2.
 // The merge must be performed in-place inside nums1.
-// ===================================================
 
 #include <bits/stdc++.h>
 using namespace std;
