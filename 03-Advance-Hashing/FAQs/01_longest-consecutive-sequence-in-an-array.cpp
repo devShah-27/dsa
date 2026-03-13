@@ -1,4 +1,4 @@
-// PROBLEM:
+// Problem:
 // Given an integer array nums of size n, return the length of the
 // longest sequence of consecutive integers.
 //
