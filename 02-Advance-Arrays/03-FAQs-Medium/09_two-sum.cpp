@@ -1,20 +1,40 @@
-// Given an array of integers nums and an integer target. Return the indices(0 - indexed) of two elements in nums such that they add up to target.
-
-// Each input will have exactly one solution, and the same element cannot be used twice. Return the answer in increasing order.
+// Problem:
+// Given an integer array nums and an integer target,
+// return the indices (0-indexed) of two elements such
+// that their sum equals target.
+//
+// Each input has exactly one valid solution and the
+// same element cannot be used twice.
+// ===================================================
 
 #include <bits/stdc++.h>
 using namespace std;
 
-// ======== BRUTE FORCE (For every element, iterate on remaining ones) ========
-// vector<int> twoSum(vector<int> &nums, int target) // TC -> O(N^2), SC -> O(1)
+// ===================================================
+// BRUTE FORCE APPROACH
+//
+// Idea:
+// Check every possible pair of elements in the array.
+// For each index i, iterate through the remaining
+// elements j > i and check whether:
+//
+// nums[i] + nums[j] == target
+//
+// As soon as such a pair is found, return their indices.
+//
+// Time Complexity: O(N^2)
+// Space Complexity: O(1)
+// ===================================================
+
+// vector<int> twoSum(vector<int> &nums, int target)
 // {
 //     int n = nums.size();
 
 //     vector<int> indices;
 
-//     for (int i = 0; i < n; i++) // O(N)
+//     for (int i = 0; i < n; i++)
 //     {
-//         for (int j = i + 1; j < n; j++) // O(N)
+//         for (int j = i + 1; j < n; j++)
 //         {
 //             if (nums[i] + nums[j] == target)
 //             {
@@ -29,19 +49,46 @@ using namespace std;
 //     return indices;
 // }
 
-// ======== BETTER (Use a data structure like a map) (⚠️ For problems asking for indices, this is optimal) ========
-vector<int> twoSum(vector<int> &nums, int target) // TC -> O(N*log(N)), SC -> O(N)
+// ===================================================
+// BETTER APPROACH (HASH MAP)
+//
+// Idea:
+// Traverse the array once while storing elements in
+// a map where:
+//
+// key   -> array value
+// value -> index of that value
+//
+// For every element nums[i], compute:
+//
+// otherInt = target - nums[i]
+//
+// If otherInt already exists in the map, we have found
+// the required pair and can return the stored index
+// along with i.
+//
+// This approach is commonly treated as the optimal
+// solution when the problem asks for indices.
+//
+// Time Complexity: O(N log N) using map
+// Space Complexity: O(N)
+//
+// NOTE: Using unordered_map would reduce the average
+// time complexity to O(N).
+// ===================================================
+
+vector<int> twoSum(vector<int> &nums, int target)
 {
     int n = nums.size();
     vector<int> indices;
 
     map<int, int> mpp;
 
-    for (int i = 0; i < n; i++) // O(N)
+    for (int i = 0; i < n; i++)
     {
         int otherInt = target - nums[i];
 
-        if (mpp.count(otherInt)) // O(log(N))
+        if (mpp.count(otherInt))
         {
             indices.emplace_back(mpp[otherInt]);
             indices.emplace_back(i);
@@ -54,8 +101,27 @@ vector<int> twoSum(vector<int> &nums, int target) // TC -> O(N*log(N)), SC -> O(
     return indices;
 }
 
-// ======== OPTIMAL (⚠️ Only for problems that ask to return YES or NO) (Use 2 pointers) ========
-// vector<int> twoSum(vector<int> &nums, int target) // TC -> O(N) + O(N*log(N)), SC -> O(1)
+// ===================================================
+// OPTIMAL APPROACH (TWO POINTERS)
+//
+// Idea:
+// Sort the array and then use the two-pointer technique to find two numbers whose sum equals target.
+//
+// Since sorting changes the original indices, we store elements as pairs: {value, original_index}. After sorting, apply two pointers from both ends.
+//
+// Move pointers based on the current sum:
+//
+// • sum < target → move left pointer
+// • sum > target → move right pointer
+//
+// NOTE: This method modifies ordering due to sorting.
+// It is typically used when the problem only asks whether such a pair exists (YES/NO) rather than returning indices directly.
+//
+// Time Complexity: O(N log N)
+// Space Complexity: O(N)
+// ===================================================
+
+// vector<int> twoSum(vector<int> &nums, int target)
 // {
 //     int n = nums.size();
 //     vector<int> indices;
@@ -65,11 +131,11 @@ vector<int> twoSum(vector<int> &nums, int target) // TC -> O(N*log(N)), SC -> O(
 //     for (int i = 0; i < n; i++)
 //         arr.push_back({nums[i], i});
 
-//     sort(arr.begin(), arr.end()); // O(N*log(N))
+//     sort(arr.begin(), arr.end());
 
 //     int i = 0, j = n - 1;
 
-//     while (i < j) // O(N)
+//     while (i < j)
 //     {
 //         int sum = arr[i].first + arr[j].first;
 
