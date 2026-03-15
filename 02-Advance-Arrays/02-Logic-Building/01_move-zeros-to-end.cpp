@@ -1,11 +1,28 @@
-// Given an integer array nums, move all the 0's to the end of the array. The relative order of the other elements must remain the same.
-
-// This must be done in place, without making a copy of the array.
+// Problem:
+// Given an integer array nums, move all zeros to the end of the array while maintaining the relative order of all non-zero elements.
+//
+// The operation must be performed in-place without creating a copy of the array.
 
 #include <bits/stdc++.h>
 using namespace std;
 
-// ============== BRUTE FORCE (Store non-zero elements in temp and place them back) ==============
+// ===================================================
+// BRUTE FORCE APPROACH
+//
+// Idea:
+// Traverse the array and store all non-zero elements
+// in a temporary array. After collecting them:
+//
+// 1. Copy the non-zero elements back into the
+//    beginning of the original array.
+// 2. Fill the remaining positions with zeros.
+//
+// This approach preserves order but uses extra space.
+//
+// Time Complexity: O(N)
+// Space Complexity: O(N)
+// ===================================================
+
 // void moveZeroes(vector<int> &nums)
 // {
 //     int N = nums.size();
@@ -28,7 +45,26 @@ using namespace std;
 //         nums[i] = 0;
 // }
 
-// ============== OPTIMAL (2-pointer approach) ==============
+// ===================================================
+// OPTIMAL APPROACH (TWO POINTERS)
+//
+// Idea:
+// Maintain a pointer `j` which represents the position
+// where the next non-zero element should be placed.
+//
+// Traverse the array with pointer `i`:
+//
+// • If nums[i] is non-zero, swap nums[i] with nums[j].
+// • Increment j so that it always points to the next
+//   available position for a non-zero element.
+//
+// This ensures all non-zero elements move forward
+// while zeros naturally shift to the end.
+//
+// Time Complexity: O(N)
+// Space Complexity: O(1)
+// ===================================================
+
 void moveZeroes(vector<int> &nums)
 {
     int j = 0;
