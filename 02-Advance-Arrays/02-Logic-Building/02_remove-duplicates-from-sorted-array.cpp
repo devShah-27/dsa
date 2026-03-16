@@ -1,16 +1,33 @@
-// Given an integer array nums sorted in non-decreasing order, remove all duplicates in-place so that each unique element appears only once.
-
-// Return the number of unique elements in the array.
-
-// If the number of unique elements be k, then,
-// - Change the array nums such that the first k elements of nums contain the unique values in the order that they were present originally.
-// - The remaining elements, as well as the size of the array does not matter in terms of correctness.
-// - The driver code will assess correctness by printing and checking only the first k elements of the modified array.
+// Problem:
+// Given a sorted integer array nums (non-decreasing order),
+// remove duplicates in-place such that each unique element
+// appears only once.
+//
+// Return k = number of unique elements. The first k positions
+// of nums must contain the unique values in their original order.
 
 #include <bits/stdc++.h>
 using namespace std;
 
-// ============= BRUTE FORCE (Use a data structure like set to store unique elements) =============
+// ===================================================
+// BRUTE FORCE APPROACH
+//
+// Idea:
+// Insert all elements into a set. Since a set stores only
+// unique values in sorted order, duplicates are automatically
+// removed.
+//
+// After building the set:
+// 1. Copy its elements back into the original array.
+// 2. Fill the remaining positions with any values (here 0).
+//
+// NOTE: This approach does not strictly preserve the in-place
+// constraint since it uses an additional data structure.
+//
+// Time Complexity: O(N log N)
+// Space Complexity: O(N)
+// ===================================================
+
 // int removeDuplicates(vector<int> &nums)
 // {
 //     int N = nums.size();
@@ -34,7 +51,29 @@ using namespace std;
 //     return index;
 // }
 
-// ============= OPTIMAL (2-pointer Approach) =============
+// ===================================================
+// OPTIMAL APPROACH (TWO POINTERS)
+//
+// Idea:
+// Since the array is already sorted, duplicates appear
+// next to each other.
+//
+// Maintain:
+// • uniqueIndex → position of last unique element
+//
+// Traverse the array with index i. Whenever a new element
+// different from nums[uniqueIndex] is found:
+//
+// 1. Move it to position (uniqueIndex + 1)
+// 2. Increment uniqueIndex
+//
+// At the end, the first (uniqueIndex + 1) elements represent
+// all unique values.
+//
+// Time Complexity: O(N)
+// Space Complexity: O(1)
+// ===================================================
+
 int removeDuplicates(vector<int> &nums)
 {
     int N = nums.size();
@@ -50,6 +89,8 @@ int removeDuplicates(vector<int> &nums)
         }
     }
 
+    // Remaining elements beyond the unique region are irrelevant
+    // for correctness, but here they are explicitly set to 0.
     for (int i = uniqueIndex + 1; i < N; i++)
         nums[i] = 0;
 
