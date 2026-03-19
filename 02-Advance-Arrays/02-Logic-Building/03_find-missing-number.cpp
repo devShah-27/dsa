@@ -1,9 +1,25 @@
-// Given an integer array of size n containing distinct values in the range from 0 to n (inclusive), return the only number missing from the array within this range.
+// Problem:
+// Given an array nums of size n containing distinct integers
+// in the range [0, n], exactly one number is missing.
+//
+// Return the missing number from this range.
 
 #include <bits/stdc++.h>
 using namespace std;
 
-// ============= BRUTE FORCE (2 loop approach) =============
+// ===================================================
+// BRUTE FORCE APPROACH
+//
+// Idea:
+// For every number in the range [0, n], check whether it
+// exists in the array using linear search.
+//
+// The first number not found in the array is the answer.
+//
+// Time Complexity: O(N^2)
+// Space Complexity: O(1)
+// ===================================================
+
 // int missingNumber(vector<int> &nums)
 // {
 //     int N = nums.size() + 1;
@@ -28,7 +44,21 @@ using namespace std;
 //     return -1;
 // }
 
-// ============= BETTER (Use Hashing) =============
+// ===================================================
+// BETTER APPROACH (HASHING)
+//
+// Idea:
+// Use a hash array (frequency array) to mark which numbers
+// are present in nums.
+//
+// Traverse nums and mark hash[nums[i]] = 1.
+// Then iterate over [0, n] and return the index which is
+// not marked.
+//
+// Time Complexity: O(N)
+// Space Complexity: O(N)
+// ===================================================
+
 // int missingNumber(vector<int> &nums)
 // {
 //     int N = nums.size() + 1;
@@ -45,22 +75,51 @@ using namespace std;
 //     return -1;
 // }
 
-// ============= OPTIMAL-1 (Use sum of N numbers formula) =============
+// ===================================================
+// OPTIMAL APPROACH 1 (SUM FORMULA)
+//
+// Idea:
+// The sum of numbers from 0 to n is:
+//   n * (n + 1) / 2
+//
+// Compute expected sum and subtract the actual sum
+// of elements in the array. The difference is the
+// missing number.
+//
+// Time Complexity: O(N)
+// Space Complexity: O(1)
+//
+// NOTE: Be careful with integer overflow for large n.
+// ===================================================
+
 // int missingNumber(vector<int> &nums)
 // {
-//     int N = nums.size(); // 0 inclusive so use nums.size directly. if 0 was not included, use nums.size()+1;
+//     int N = nums.size();
 
 //     int sum1 = (N * (N + 1)) / 2;
 
 //     int sum2 = 0;
 
 //     for (auto it : nums)
-//         sum2 = sum2 + it;
+//         sum2 += it;
 
 //     return sum1 - sum2;
 // }
 
-// ============= OPTIMAL-2 (Use XOR) =============
+// ===================================================
+// OPTIMAL APPROACH 2 (XOR)
+//
+// Idea:
+// Use XOR properties:
+// • A ^ A = 0
+// • A ^ 0 = A
+//
+// XOR all numbers from 1 to n and all elements in nums.
+// The duplicates cancel out, leaving the missing number.
+//
+// Time Complexity: O(N)
+// Space Complexity: O(1)
+// ===================================================
 
 int missingNumber(vector<int> &nums)
 {
@@ -68,8 +127,8 @@ int missingNumber(vector<int> &nums)
 
     for (int i = 0; i < nums.size(); i++)
     {
-        xor1 = xor1 ^ (i + 1);
-        xor2 = xor2 ^ nums[i];
+        xor1 = xor1 ^ (i + 1); // XOR of 1..n
+        xor2 = xor2 ^ nums[i]; // XOR of array elements
     }
 
     return xor1 ^ xor2;
