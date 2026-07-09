@@ -85,7 +85,7 @@ bool possibleDay(vector<int> &nums, int dayCount, int k, int m)
 // ==========================================================================================
 // int roseGarden(int n, vector<int> nums, int k, int m)
 // {
-//     if (n < (m * 1LL * k))
+//     if (n < (m * 1LL * k * 1LL))
 //         return -1;
 //
 //     int minimumElem = minElem(nums), maximumElem = maxElem(nums);
@@ -112,7 +112,7 @@ bool possibleDay(vector<int> &nums, int dayCount, int k, int m)
 int roseGarden(int n, vector<int> nums, int k, int m)
 {
     // Impossible if total required roses exceed available roses
-    if (n < (m * 1LL * k))
+    if (n < (m * 1LL * k * 1LL))
         return -1;
 
     int low = minElem(nums), high = maxElem(nums);
