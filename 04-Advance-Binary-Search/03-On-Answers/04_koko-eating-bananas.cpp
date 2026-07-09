@@ -33,9 +33,9 @@ int maxArrayElem(vector<int> &nums)
 // Time Complexity: O(N)
 // Space Complexity: O(1)
 // =====================================================================
-int totalHoursForGivenRate(vector<int> &nums, int k)
+long long totalHoursForGivenRate(vector<int> &nums, int k)
 {
-    int ans = 0;
+    long long ans = 0;
 
     for (int i = 0; i < nums.size(); i++)
     {
@@ -86,7 +86,7 @@ int minimumRateToEatBananas(vector<int> &nums, int h)
     {
         int mid = low + ((high - low) / 2);
 
-        int totalHrs = totalHoursForGivenRate(nums, mid);
+        long long totalHrs = totalHoursForGivenRate(nums, mid);
 
         // Current speed is sufficient; search for a smaller valid speed
         if (totalHrs <= h)
@@ -102,8 +102,8 @@ int minimumRateToEatBananas(vector<int> &nums, int h)
 
 int main()
 {
-    vector<int> pile = {25, 12, 8, 14, 19};
-    int h = 5;
+    vector<int> pile = {805306368,805306368,805306368};
+    int h = 1000000000;
 
     int ans = minimumRateToEatBananas(pile, h);
 
