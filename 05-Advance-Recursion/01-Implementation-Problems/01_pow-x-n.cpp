@@ -21,13 +21,15 @@ using namespace std;
 // {
 //     double ans = 1.0000;
 
-//     if (n < 0)
+//     long num = n;
+
+//     if (num < 0)
 //     {
 //         x = 1 / x;
-//         n = -1 * n;
+//         num = -1 * num;
 //     }
 
-//     for (int i = 0; i < n; i++)
+//     for (double i = 0; i < num; i++)
 //     {
 //         ans = ans * x;
 //     }
