@@ -1,6 +1,5 @@
 // Problem:
-// Given an integer array that may contain duplicates, generate all possible
-// subsets (power set) without including duplicate subsets.
+// Given an integer array that may contain duplicates, generate all possible subsets (power set) without including duplicate subsets.
 // The order of subsets in the output does not matter.
 
 #include <bits/stdc++.h>
@@ -11,8 +10,7 @@ using namespace std;
 //
 // Idea:
 // Sort the array so duplicate elements become adjacent.
-// Generate subsets using recursion and skip duplicate elements at the same
-// recursion level to avoid creating duplicate subsets.
+// Generate subsets using recursion and skip duplicate elements at the same recursion level to avoid creating duplicate subsets.
 // Each recursive call represents choosing the next element for the subset.
 //
 // Time Complexity: O(2^n * n) in the worst case due to subset generation
