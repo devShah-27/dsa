@@ -1,0 +1,88 @@
+// Problem:
+// Given the head of a singly linked list and an integer X, insert a new node with value X at the end of the linked list and return the head.
+
+#include <bits/stdc++.h>
+using namespace std;
+
+struct ListNode
+{
+    int val;
+    ListNode *next;
+
+    // Constructor to initialize node value.
+    ListNode(int data1)
+    {
+        val = data1;
+        next = NULL;
+    }
+
+    // Constructor to initialize node value and next pointer.
+    ListNode(int data1, ListNode *next1)
+    {
+        val = data1;
+        next = next1;
+    }
+};
+
+void printLL(ListNode *head)
+{
+    while (head != NULL)
+    {
+        cout << head->val << " ";
+        head = head->next;
+    }
+
+    cout << endl;
+}
+
+// ============================================================================
+// INSERT AT TAIL APPROACH
+//
+// Idea:
+// Traverse the linked list until the last node is reached.
+// Create a new node and connect it to the current tail node.
+//
+// Time Complexity: O(N)
+// Space Complexity: O(1)   // Extra space excluding the newly created node.
+// ============================================================================
+
+ListNode *insertAtTail(ListNode *head, int X)
+{
+    // Empty linked list case.
+    if (head == NULL)
+        return new ListNode(X);
+
+    ListNode *temp = head;
+
+    // Move to the last node.
+    while (temp->next != NULL)
+    {
+        temp = temp->next;
+    }
+
+    // Attach the new node at the end.
+    temp->next = new ListNode(X);
+
+    return head;
+}
+
+int main()
+{
+    vector<int> arr = {20, 30, 40};
+    int X = 10;
+
+    // Create linked list: 20 -> 30 -> 40
+    ListNode *head = new ListNode(arr[0]);
+    head->next = new ListNode(arr[1]);
+    head->next->next = new ListNode(arr[2]);
+
+    cout << "Original List: ";
+    printLL(head);
+
+    head = insertAtTail(head, X);
+
+    cout << "List after inserting the given value at tail: ";
+    printLL(head);
+
+    return 0;
+}
