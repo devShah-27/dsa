@@ -103,7 +103,7 @@ Space Complexity: O(1)
 
 /*
 ==================================================
-OPTIMAL APPROACH (RECURSION)
+RECURSION
 
 Idea:
 Use recursion to reach the last node and add 1 from right to left.
