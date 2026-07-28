@@ -152,7 +152,6 @@ bool isPalindrome(ListNode *head)
 
 int main()
 {
-
     ListNode *head = new ListNode(1);
     head->next = new ListNode(5);
     head->next->next = new ListNode(2);
