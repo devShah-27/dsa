@@ -1,4 +1,7 @@
-// Given the head of a singly linked list containing integers, shift the elements of the linked list to the right by k places and return the head of the modified list. Do not change the values of the nodes, only change the links between nodes.
+// Problem:
+// Given a singly linked list, rotate the list to the right by k positions.
+// Return the modified linked list by changing only the node links.
+// The node values should remain unchanged.
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -27,14 +30,18 @@ struct ListNode
 void insertNode(ListNode *&head, int val)
 {
     ListNode *newNode = new ListNode(val);
+
     if (head == NULL)
     {
         head = newNode;
         return;
     }
+
     ListNode *temp = head;
+
     while (temp->next != NULL)
         temp = temp->next;
+
     temp->next = newNode;
 }
 
@@ -43,17 +50,46 @@ void printList(ListNode *head)
     while (head != NULL)
     {
         cout << head->val;
+
         if (head->next != NULL)
             cout << "->";
+
         head = head->next;
     }
+
     cout << endl;
 }
 
-// BRUTE FORCE -> Same as optimal without the step k=k%length where TC -> O(N*K), SC -> O(1)
+/*
+==================================================
+BRUTE FORCE APPROACH
+
+Idea:
+Rotate the linked list one position at a time by moving the last node to the front. Repeat this process k times.
+The optimization in the optimal approach is avoiding repeated rotations.
+
+Time Complexity: O(N * K)
+Space Complexity: O(1)
+==================================================
+*/
 
 // OPTIMAL APPROACH
-ListNode *rotateRight(ListNode *head, int k) // TC -> O(N), SC -> O(1)
+
+/*
+==================================================
+OPTIMAL APPROACH (CIRCULAR LINK + BREAK)
+
+Idea:
+Connect the last node to the head to form a circular linked list.
+Find the new tail after rotation and break the circle at that position.
+Reduce unnecessary rotations by using k % length.
+
+Time Complexity: O(N)
+Space Complexity: O(1)
+==================================================
+*/
+
+ListNode *rotateRight(ListNode *head, int k)
 {
     if (!head || !head->next)
         return head;
@@ -72,8 +108,10 @@ ListNode *rotateRight(ListNode *head, int k) // TC -> O(N), SC -> O(1)
     if (k == 0)
         return head;
 
+    // Connect tail with head to form a circular linked list.
     tail->next = head;
 
+    // Find the new tail node after rotation.
     ListNode *temp = head;
     int count = 0;
 
@@ -87,8 +125,10 @@ ListNode *rotateRight(ListNode *head, int k) // TC -> O(N), SC -> O(1)
         temp = temp->next;
     }
 
+    // The next node of new tail becomes the new head.
     head = temp->next;
 
+    // Break the circular linked list.
     temp->next = nullptr;
 
     return head;
