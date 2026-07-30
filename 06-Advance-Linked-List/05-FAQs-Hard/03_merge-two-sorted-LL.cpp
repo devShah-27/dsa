@@ -1,4 +1,7 @@
-// Given the heads of two linked lists, list1 and list2, where each linked list has its elements sorted in non-decreasing order, merge them into a single sorted linked list and return the head of the merged linked list.
+// Problem:
+// Given two sorted singly linked lists, merge them into one sorted linked list.
+// Return the head of the merged linked list without changing the values of nodes.
+// The merged list should maintain non-decreasing order.
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -22,13 +25,13 @@ struct ListNode
 void printLinkedList(ListNode *head)
 {
     ListNode *temp = head;
+
     while (temp != nullptr)
     {
-
         cout << temp->val << " ";
-
         temp = temp->next;
     }
+
     cout << endl;
 }
 
@@ -52,11 +55,23 @@ ListNode *convertToLL(vector<int> &arr)
     return head;
 }
 
-// BRUTE FORCE
-// ListNode *mergeTwoLists(ListNode *list1, ListNode *list2) // TC -> O(N+M) + O((N+M) log(N+M)) + O(N+M), SC -> O(N+M)
+/*
+==================================================
+BRUTE FORCE APPROACH
+
+Idea:
+Traverse both linked lists and store all node values in an array.
+Sort the combined array and create a new linked list from the sorted values.
+
+Time Complexity: O((N + M) log(N + M))
+Space Complexity: O(N + M)
+==================================================
+*/
+// ListNode *mergeTwoLists(ListNode *list1, ListNode *list2)
 // {
 //     if (!list1)
 //         return list2;
+
 //     if (!list2)
 //         return list1;
 
@@ -85,11 +100,25 @@ ListNode *convertToLL(vector<int> &arr)
 //     return newHead;
 // }
 
-// Optimal Approach
-ListNode *mergeTwoLists(ListNode *list1, ListNode *list2) // TC -> O(N+M), SC -> O(1)
+/*
+==================================================
+OPTIMAL APPROACH (TWO POINTER MERGING)
+
+Idea:
+Use two pointers to traverse both sorted linked lists.
+Compare the current nodes and attach the smaller node to the merged list.
+Continue until one list is exhausted, then attach the remaining nodes.
+
+Time Complexity: O(N + M)
+Space Complexity: O(1)
+==================================================
+*/
+
+ListNode *mergeTwoLists(ListNode *list1, ListNode *list2)
 {
     if (!list1)
         return list2;
+
     if (!list2)
         return list1;
 
