@@ -1,16 +1,25 @@
-// Given the two integers, dividend and divisor. Divide without using the mod, division, or multiplication operators and return the quotient.
-
-// The fractional portion of the integer division should be lost as it truncates toward zero.
-// As an illustration, 8.345 and -2.7335 would be reduced to 8 and -2 respectively.
-
-// Note: Assume we are dealing with an environment that could only store integers within the 32-bit signed integer range: [−231, 231 − 1]. For this problem, if the quotient is strictly greater than 231 - 1, then return 231 - 1, and if the quotient is strictly less than -231, then return -231.
+// Problem:
+// Divide two integers without using multiplication, division, or modulo operators.
+// Return the quotient truncated toward zero while handling 32-bit signed integer overflow.
 
 #include <bits/stdc++.h>
 using namespace std;
 
-// BRUTE FORCE
+// ==================================================
+// BRUTE FORCE APPROACH
+// Idea:
+// Repeatedly subtract the absolute value of the divisor from the absolute
+// value of the dividend until the remaining value becomes smaller than the
+// divisor. The number of successful subtractions is the quotient.
+// Apply the correct sign at the end and handle overflow separately.
+//
+// Time Complexity: O(|dividend / divisor|)
+// Space Complexity: O(1)
+// ==================================================
+
 int divide(int dividend, int divisor)
 {
+    // Handle simple edge cases.
     if (dividend == divisor)
         return 1;
 
@@ -20,8 +29,10 @@ int divide(int dividend, int divisor)
     if (divisor == 1)
         return dividend;
 
+    // Determine whether the final quotient should be positive.
     bool isPositive = !((dividend >= 0 && divisor < 0) || (dividend < 0 && divisor > 0));
 
+    // Work with absolute values to simplify subtraction.
     long long n = abs((long long)dividend);
     long long d = abs((long long)divisor);
 
