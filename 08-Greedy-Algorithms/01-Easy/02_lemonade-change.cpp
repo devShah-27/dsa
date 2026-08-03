@@ -1,11 +1,20 @@
-// Each lemonade at a booth sells for $5. Consumers are lining up to place individual orders, following the billing order. Every consumer will purchase a single lemonade and may pay with a $5, $10, or $20 bill. Each customer must receive the appropriate change so that the net transaction is $5. Initially, there is no change available.
-
-// Determine if it is possible to provide the correct change to every customer. Return true if the correct change can be given to every customer, and false otherwise.
-
-// Given an integer array bills, where bills[i] is the bill the ith customer pays, return true if the correct change can be given to every customer, and false otherwise.
+// Problem:
+// Given customers paying with $5, $10, or $20 bills for a $5 lemonade, determine whether correct change can be provided to every customer in order.
+// Return true if all transactions can be completed successfully, otherwise false.
 
 #include <bits/stdc++.h>
 using namespace std;
+
+// ==================================================
+// GREEDY APPROACH
+//
+// Idea:
+// Maintain the count of available $5 and $10 bills while processing customers in order.
+// For a $20 bill, prefer using one $10 and one $5 as change because preserving $5 bills gives more flexibility for future transactions.
+//
+// Time Complexity: O(N)
+// Space Complexity: O(1)
+// ==================================================
 
 bool lemonadeChange(vector<int> &bills)
 {
@@ -67,5 +76,6 @@ int main()
         cout << "It is possible to provide change for all customers." << endl;
     else
         cout << "It is not possible to provide change for all customers." << endl;
+
     return 0;
 }
