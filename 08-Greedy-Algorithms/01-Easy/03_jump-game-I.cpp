@@ -1,8 +1,21 @@
-// Given an array of integers nums, each element in the array represents the maximum jump length at that position. Initially starting at the first index of the array, determine if it is possible to reach the last index. Return true if the last index can be reached, otherwise return false.
+// Problem:
+// Given an array where each element represents the maximum jump length from that index, determine whether it is possible to reach the last index starting from index 0.
+// Return true if the last index can be reached, otherwise return false.
 
 #include <bits/stdc++.h>
 
 using namespace std;
+
+// ==================================================
+// GREEDY APPROACH
+//
+// Idea:
+// Track the farthest index that can be reached while traversing the array.
+// If the current index is beyond the maximum reachable position, reaching the end is impossible. Otherwise, keep updating the farthest reachable index.
+//
+// Time Complexity: O(N)
+// Space Complexity: O(1)
+// ==================================================
 
 bool canJump(vector<int> &nums)
 {
