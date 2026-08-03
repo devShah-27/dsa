@@ -1,12 +1,21 @@
-// Consider a scenario where a teacher wants to distribute cookies to students, with each student receiving at most one cookie.
-
-// Given two arrays, student and cookie, the ith value in the Student array describes the minimum size of cookie that the ith student can be assigned. The jth value in the Cookie array represents the size of the jth cookie. If Cookie[j] >= Student[i], the jth cookie can be assigned to the ith student.
-// Maximize the number of students assigned with cookies and output the maximum number.
+// Problem:
+// Given students with minimum cookie size requirements and cookies of different sizes, assign at most one cookie to each student. Maximize the number of students who can receive a cookie and return the maximum number of satisfied students.
 
 #include <bits/stdc++.h>
 using namespace std;
 
+// ==================================================
 // GREEDY APPROACH
+//
+// Idea:
+// Sort both students and cookies in increasing order.
+// Assign the smallest available cookie that can satisfy the current smallest requirement.
+// This greedy choice maximizes the chance of satisfying more students.
+//
+// Time Complexity: O(N log N + M log M)
+// Space Complexity: O(1) (excluding sorting overhead)
+// ==================================================
+
 int findMaximumCookieStudents(vector<int> &Student, vector<int> &Cookie)
 {
     int n = Student.size(), m = Cookie.size();
