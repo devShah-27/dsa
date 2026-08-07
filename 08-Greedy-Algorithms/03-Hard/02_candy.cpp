@@ -1,5 +1,5 @@
 // Problem:
-// Given the ratings of N children standing in a line, distribute candies such that every child gets at least one candy, and any child with a higher rating than an adjacent child receives more candies. Return the minimum candies required.
+// Given the ratings of N children standing in a line, distribute candies such that every child gets at least one candy, and children with higher ratings than their neighbours receive more candies. Return the minimum number of candies required.
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -8,12 +8,10 @@ using namespace std;
 // BRUTE FORCE APPROACH
 //
 // Idea:
-// Perform two passes:
-// 1. Left to right: ensure every child with a higher rating than the left neighbor
-//    gets more candies.
-// 2. Right to left: ensure every child with a higher rating than the right neighbor
-//    gets more candies.
-// The final candy count for each child is the maximum value assigned by the two passes.
+// Perform two passes to calculate candy requirements from both directions:
+// 1. Left to right: handle children with higher ratings than their left neighbour.
+// 2. Right to left: handle children with higher ratings than their right neighbour.
+// Assign each child the maximum candy requirement from both directions.
 //
 // Time Complexity: O(3N)
 // Space Complexity: O(2N)
@@ -59,46 +57,102 @@ using namespace std;
 //
 // Idea:
 // Store the left-to-right candy requirements in an auxiliary array.
-// During the right-to-left pass, compute the required candies on the fly instead of storing another array, and immediately add the maximum of both requirements to the final answer.
+// While traversing from right to left, calculate the right-side requirement using a variable instead of another array and add the maximum of both requirements.
 //
 // Time Complexity: O(2N)
 // Space Complexity: O(N)
+// ==================================================
+
+// int candy(vector<int> &ratings)
+// {
+//     int n = ratings.size();
+
+//     vector<int> left(n);
+
+//     left[0] = 1;
+
+//     for (int i = 1; i < n; i++)
+//     {
+//         if (ratings[i] > ratings[i - 1])
+//             left[i] = left[i - 1] + 1;
+//         else
+//             left[i] = 1;
+//     }
+
+//     int current = 1, right = 1;
+
+//     int sum = max(left[n - 1], right);
+
+//     for (int i = n - 2; i >= 0; i--)
+//     {
+//         if (ratings[i] > ratings[i + 1])
+//         {
+//             current = right + 1;
+//             right = current;
+//         }
+//         else
+//         {
+//             current = 1;
+//             right = 1;
+//         }
+
+//         sum += max(left[i], current);
+//     }
+
+//     return sum;
+// }
+
+// ==================================================
+// OPTIMAL APPROACH
+//
+// Idea:
+// Treat the ratings array as increasing and decreasing slopes.
+// Count candies required for increasing and decreasing sequences separately.
+// For a decreasing slope after a higher peak, adjust the peak candy count to satisfy both increasing and decreasing constraints.
+//
+// Time Complexity: O(N)
+// Space Complexity: O(1)
 // ==================================================
 
 int candy(vector<int> &ratings)
 {
     int n = ratings.size();
 
-    vector<int> left(n);
+    int sum = 1;
 
-    left[0] = 1;
+    int i = 1;
 
-    for (int i = 1; i < n; i++)
+    while (i < n)
     {
-        if (ratings[i] > ratings[i - 1])
-            left[i] = left[i - 1] + 1;
-        else
-            left[i] = 1;
-    }
-
-    int current = 1, right = 1;
-
-    int sum = max(left[n - 1], right);
-
-    for (int i = n - 2; i >= 0; i--)
-    {
-        if (ratings[i] > ratings[i + 1])
+        // Handle equal ratings (plateau).
+        if (ratings[i] == ratings[i - 1])
         {
-            current = right + 1;
-            right = current;
-        }
-        else
-        {
-            current = 1;
-            right = 1;
+            sum += 1;
+            i++;
+            continue;
         }
 
-        sum += max(left[i], current);
+        // Count increasing slope.
+        int peak = 1;
+        while (i < n && ratings[i] > ratings[i - 1])
+        {
+            peak++;
+            sum += peak;
+            i++;
+        }
+
+        // Count decreasing slope.
+        int trough = 1;
+        while (i < n && ratings[i] < ratings[i - 1])
+        {
+            sum += trough;
+            trough++;
+            i++;
+        }
+
+        // Adjust the peak if the decreasing slope is longer.
+        if (trough > peak)
+            sum += trough - peak;
     }
 
     return sum;
