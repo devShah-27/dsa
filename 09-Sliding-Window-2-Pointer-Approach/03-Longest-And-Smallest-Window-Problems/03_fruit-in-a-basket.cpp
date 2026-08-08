@@ -1,18 +1,22 @@
-// There is only one row of fruit trees on the farm, oriented left to right. An integer array called fruits represents the trees, where fruits[i] denotes the kind of fruit produced by the ith tree.
-
-// The goal is to gather as much fruit as possible, adhering to the owner's stringent rules:
-
-// 1) There are two baskets available, and each basket can only contain one kind of fruit. The quantity of fruit each basket can contain is unlimited.
-// 2) Start at any tree, but as you proceed to the right, select exactly one fruit from each tree, including the starting tree. One of the baskets must hold the harvested fruits.
-// 3) Once reaching a tree with fruit that cannot fit into any basket, stop.
-
-// Return the maximum number of fruits that can be picked.
+// Problem:
+// Given an array where fruits[i] represents the type of fruit on the ith tree, find the maximum number of fruits that can be collected from a contiguous range containing at most two distinct fruit types.
 
 #include <bits/stdc++.h>
 using namespace std;
 
-// BRUTE FORCE
-// int totalFruits(vector<int> &fruits) // TC -> O(N^2), SC -> O(1)
+// ==================================================
+// BRUTE FORCE APPROACH
+//
+// Idea:
+// Generate every possible subarray and store the distinct fruit types present.
+// If the number of distinct types exceeds two, stop expanding the current range.
+// Track the maximum valid subarray length.
+//
+// Time Complexity: O(N^2)
+// Space Complexity: O(1)
+// ==================================================
+
+// int totalFruits(vector<int> &fruits)
 // {
 //     int n = fruits.size(), maxLength = 0;
 
@@ -34,8 +38,18 @@ using namespace std;
 //     return maxLength;
 // }
 
-// BETTER
-// int totalFruits(vector<int> &fruits) // TC -> O(2N), SC -> O(1)
+// ==================================================
+// BETTER APPROACH (SLIDING WINDOW)
+//
+// Idea:
+// Maintain a sliding window containing at most two distinct fruit types.
+// Expand the window using the right pointer. If the number of fruit types exceeds two, shrink the window from the left until the condition becomes valid again.
+//
+// Time Complexity: O(2N)
+// Space Complexity: O(1)
+// ==================================================
+
+// int totalFruits(vector<int> &fruits)
 // {
 //     int n = fruits.size(), maxLength = 0;
 
@@ -47,22 +61,17 @@ using namespace std;
 //     {
 //         mpp[fruits[r]]++;
 
-//         if (mpp.size() > 2)
+//         while (mpp.size() > 2)
 //         {
-//             while (mpp.size() > 2)
-//             {
-//                 mpp[fruits[l]]--;
+//             mpp[fruits[l]]--;
 
-//                 if (mpp[fruits[l]] == 0)
-//                     mpp.erase(fruits[l]);
+//             if (mpp[fruits[l]] == 0)
+//                 mpp.erase(fruits[l]);
 
-//                 l++;
-//             }
+//             l++;
 //         }
-//         if (mpp.size() <= 2)
-//         {
-//             maxLength = max(maxLength, r - l + 1);
-//         }
+
+//         maxLength = max(maxLength, r - l + 1);
 
 //         r++;
 //     }
@@ -70,8 +79,18 @@ using namespace std;
 //     return maxLength;
 // }
 
-// OPTIMAL
-int totalFruits(vector<int> &fruits) // TC -> O(N), SC -> O(1)
+// ==================================================
+// OPTIMAL APPROACH (SLIDING WINDOW)
+//
+// Idea:
+// Maintain a window with at most two distinct fruit types using two pointers.
+// When a third fruit type appears, remove the leftmost fruits until only two types remain. Since both pointers move only forward, each element is processed once.
+//
+// Time Complexity: O(N)
+// Space Complexity: O(1)
+// ==================================================
+
+int totalFruits(vector<int> &fruits)
 {
     int n = fruits.size(), maxLength = 0;
 
@@ -92,6 +111,7 @@ int totalFruits(vector<int> &fruits) // TC -> O(N), SC -> O(1)
 
             l++;
         }
+
         if (mpp.size() <= 2)
         {
             maxLength = max(maxLength, r - l + 1);
