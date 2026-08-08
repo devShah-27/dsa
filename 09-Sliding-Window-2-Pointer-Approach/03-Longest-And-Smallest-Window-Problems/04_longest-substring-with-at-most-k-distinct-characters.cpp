@@ -1,10 +1,21 @@
-// Given a string s and an integer k.Find the length of the longest substring with at most k distinct characters.
+// Problem:
+// Given a string s and an integer k, find the length of the longest substring that contains at most k distinct characters.
+// Return the maximum length of such a substring.
 
 #include <bits/stdc++.h>
 using namespace std;
 
-// BRUTE FORCE
-// int kDistinctChar(string &s, int k) // TC -> O(N^2), SC -> O(k)
+// ==================================================
+// BRUTE FORCE APPROACH
+//
+// Idea:
+// Generate all possible substrings and maintain a set of characters present in the current substring. Stop expanding once the number of distinct characters exceeds k and track the maximum valid substring length.
+//
+// Time Complexity: O(N^2)
+// Space Complexity: O(K)
+// ==================================================
+
+// int kDistinctChar(string &s, int k)
 // {
 //     int n = s.size(), maxLength = 0;
 
@@ -26,8 +37,18 @@ using namespace std;
 //     return maxLength;
 // }
 
-// BETTER
-// int kDistinctChar(string &s, int k) // TC -> O(2N), SC -> O(K)
+// ==================================================
+// BETTER APPROACH (SLIDING WINDOW)
+//
+// Idea:
+// Maintain a window using two pointers and store the frequency of characters.
+// Expand the window using the right pointer. If the number of distinct characters exceeds k, shrink the window from the left until the condition becomes valid.
+//
+// Time Complexity: O(2N)
+// Space Complexity: O(K)
+// ==================================================
+
+// int kDistinctChar(string &s, int k)
 // {
 //     int n = s.size(), maxLength = 0;
 
@@ -39,22 +60,17 @@ using namespace std;
 //     {
 //         mpp[s[r]]++;
 
-//         if (mpp.size() > k)
+//         while (mpp.size() > k)
 //         {
-//             while (mpp.size() > k)
-//             {
-//                 mpp[s[l]]--;
+//             mpp[s[l]]--;
 
-//                 if (mpp[s[l]] == 0)
-//                     mpp.erase(s[l]);
+//             if (mpp[s[l]] == 0)
+//                 mpp.erase(s[l]);
 
-//                 l++;
-//             }
+//             l++;
 //         }
-//         else
-//         {
-//             maxLength = max(maxLength, r - l + 1);
-//         }
+
+//         maxLength = max(maxLength, r - l + 1);
 
 //         r++;
 //     }
@@ -62,8 +78,18 @@ using namespace std;
 //     return maxLength;
 // }
 
-// OPTIMAL
-int kDistinctChar(string &s, int k) // TC -> O(N), SC -> O(K)
+// ==================================================
+// OPTIMAL APPROACH (SLIDING WINDOW)
+//
+// Idea:
+// Maintain a window with at most k distinct characters using two pointers.
+// Whenever the distinct character count exceeds k, remove the leftmost character and move the left pointer by one position. Each character is processed only once.
+//
+// Time Complexity: O(N)
+// Space Complexity: O(K)
+// ==================================================
+
+int kDistinctChar(string &s, int k)
 {
     int n = s.size(), maxLength = 0;
 
