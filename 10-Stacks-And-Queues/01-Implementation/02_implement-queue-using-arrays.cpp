@@ -29,7 +29,7 @@ class ArrayQueue
 {
     int capacity;
     int *q;
-    int currSize = 0;
+    int currSize;
     int start;
     int end;
 
@@ -50,10 +50,10 @@ public:
 
     void push(int x)
     {
-        if (currSize > capacity)
+        if (currSize >= capacity)
         {
             cout << "Queue overflow" << endl;
-            exit(1);
+            return;
         }
         else if (currSize == 0)
         {
@@ -98,7 +98,7 @@ public:
         if (isEmpty())
         {
             cout << "Queue is Empty" << endl;
-            exit(1);
+            return -1;
         }
 
         return q[start];
