@@ -9,9 +9,7 @@ using namespace std;
 // BRUTE FORCE APPROACH
 //
 // Idea:
-// Generate every possible subarray while maintaining the minimum and
-// maximum element. Add the difference between maximum and minimum
-// for each subarray.
+// Generate every possible subarray while maintaining the minimum and maximum element. Add the difference between maximum and minimum for each subarray.
 //
 // Time Complexity:
 // O(N^2), where N is the size of the array.
@@ -50,8 +48,7 @@ using namespace std;
 // The range of every subarray can be represented as:
 // Sum of all subarray maximums - Sum of all subarray minimums.
 //
-// Use monotonic stacks to find how many subarrays each element contributes
-// as the maximum and minimum element.
+// Use monotonic stacks to find how many subarrays each element contributes as the maximum and minimum element.
 //
 // Time Complexity:
 // O(N), where each element is pushed and popped from the stacks once.
