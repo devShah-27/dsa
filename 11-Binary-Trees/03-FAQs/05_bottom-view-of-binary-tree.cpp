@@ -80,7 +80,6 @@ vector<int> bottomView(TreeNode *root)
 
 int main()
 {
-    // Creating a sample binary tree.
     TreeNode *root = new TreeNode(1);
 
     root->left = new TreeNode(2);
