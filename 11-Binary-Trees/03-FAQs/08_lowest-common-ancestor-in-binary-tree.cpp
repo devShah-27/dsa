@@ -54,23 +54,56 @@ TreeNode *lowestCommonAncestor(TreeNode *root, TreeNode *p, TreeNode *q)
 
 int main()
 {
-    TreeNode *root = new TreeNode(3);
+    vector<TreeNode *> nodes(1024);
 
-    root->left = new TreeNode(5);
-    root->right = new TreeNode(1);
+    for (int i = 1; i <= 1023; i++)
+    {
+        nodes[i] = new TreeNode(i);
+    }
 
-    root->left->left = new TreeNode(6);
-    root->left->right = new TreeNode(2);
+    for (int i = 1; i <= 511; i++)
+    {
+        nodes[i]->left = nodes[2 * i];
+        nodes[i]->right = nodes[2 * i + 1];
+    }
 
-    root->right->left = new TreeNode(0);
-    root->right->right = new TreeNode(8);
+    TreeNode *root = nodes[1];
 
-    TreeNode *p = root->left;
-    TreeNode *q = root->right;
+    TreeNode *p = nodes[500];
+    TreeNode *q = nodes[900];
 
     TreeNode *lca = lowestCommonAncestor(root, p, q);
 
-    cout << "Lowest Common Ancestor: " << lca->data << endl;
+    cout << "LCA of " << p->data
+         << " and " << q->data
+         << " = " << lca->data << endl;
+
+    p = nodes[1000];
+    q = nodes[1001];
+
+    lca = lowestCommonAncestor(root, p, q);
+
+    cout << "LCA of " << p->data
+         << " and " << q->data
+         << " = " << lca->data << endl;
+
+    p = nodes[100];
+    q = nodes[400];
+
+    lca = lowestCommonAncestor(root, p, q);
+
+    cout << "LCA of " << p->data
+         << " and " << q->data
+         << " = " << lca->data << endl;
+
+    p = nodes[1022];
+    q = nodes[1023];
+
+    lca = lowestCommonAncestor(root, p, q);
+
+    cout << "LCA of " << p->data
+         << " and " << q->data
+         << " = " << lca->data << endl;
 
     return 0;
 }
