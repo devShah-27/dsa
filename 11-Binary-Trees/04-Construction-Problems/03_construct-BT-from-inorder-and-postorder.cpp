@@ -1,7 +1,6 @@
 // Problem:
 // Given inorder and postorder traversals of the same binary tree, construct and return the tree.
-// Assume all node values are unique, so the inorder position of each value uniquely identifies
-// the left and right subtrees.
+// Assume all node values are unique, so the inorder position of each value uniquely identifies the left and right subtrees.
 
 #include <bits/stdc++.h>
 using namespace std;
