@@ -1,7 +1,6 @@
 // Problem:
 // Design an algorithm to serialize and deserialize a binary tree.
-// Serialization converts a tree into a string representation, and deserialization reconstructs
-// the original tree structure from that string.
+// Serialization converts a tree into a string representation, and deserialization reconstructs the original tree structure from that string.
 
 #include <bits/stdc++.h>
 using namespace std;
