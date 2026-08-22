@@ -35,8 +35,7 @@ TreeNode *insert(TreeNode *node, int key)
 // Idea:
 // - If current value == key, it is the exact floor.
 // - If current value > key, it cannot be the floor, so move left.
-// - If current value < key, it is a valid floor candidate; store it and move right
-//   to search for a larger valid value.
+// - If current value < key, it is a valid floor candidate; store it and move right to search for a larger valid value.
 //
 // Time Complexity: O(H), where H is the height of the BST.
 // Space Complexity: O(1), using constant extra space.
@@ -74,8 +73,7 @@ int getFloor(TreeNode *root, int key)
 // Idea:
 // - If current value == key, it is the exact ceil.
 // - If current value < key, it cannot be the ceil, so move right.
-// - If current value > key, it is a valid ceil candidate; store it and move left
-//   to search for a smaller valid value.
+// - If current value > key, it is a valid ceil candidate; store it and move left to search for a smaller valid value.
 //
 // Time Complexity: O(H), where H is the height of the BST.
 // Space Complexity: O(1), using constant extra space.
