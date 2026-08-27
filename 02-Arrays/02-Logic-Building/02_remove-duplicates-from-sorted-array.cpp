@@ -1,10 +1,7 @@
 // Problem:
-// Given a sorted integer array nums (non-decreasing order),
-// remove duplicates in-place such that each unique element
-// appears only once.
+// Given a sorted integer array nums (non-decreasing order), remove duplicates in-place such that each unique element appears only once.
 //
-// Return k = number of unique elements. The first k positions
-// of nums must contain the unique values in their original order.
+// Return k = number of unique elements. The first k positions of nums must contain the unique values in their original order.
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -13,16 +10,13 @@ using namespace std;
 // BRUTE FORCE APPROACH
 //
 // Idea:
-// Insert all elements into a set. Since a set stores only
-// unique values in sorted order, duplicates are automatically
-// removed.
+// Insert all elements into a set. Since a set stores only unique values in sorted order, duplicates are automatically removed.
 //
 // After building the set:
 // 1. Copy its elements back into the original array.
 // 2. Fill the remaining positions with any values (here 0).
 //
-// NOTE: This approach does not strictly preserve the in-place
-// constraint since it uses an additional data structure.
+// NOTE: This approach does not strictly preserve the in-pl constraint since it uses an additional data structure.
 //
 // Time Complexity: O(N log N)
 // Space Complexity: O(N)
@@ -55,20 +49,17 @@ using namespace std;
 // OPTIMAL APPROACH (TWO POINTERS)
 //
 // Idea:
-// Since the array is already sorted, duplicates appear
-// next to each other.
+// Since the array is already sorted, duplicates appear next to each other.
 //
 // Maintain:
 // • uniqueIndex → position of last unique element
 //
-// Traverse the array with index i. Whenever a new element
-// different from nums[uniqueIndex] is found:
+// Traverse the array with index i. Whenever a new element different from nums[uniqueIndex] is found:
 //
 // 1. Move it to position (uniqueIndex + 1)
 // 2. Increment uniqueIndex
 //
-// At the end, the first (uniqueIndex + 1) elements represent
-// all unique values.
+// At the end, the first (uniqueIndex + 1) elements represent all unique values.
 //
 // Time Complexity: O(N)
 // Space Complexity: O(1)
@@ -89,8 +80,7 @@ int removeDuplicates(vector<int> &nums)
         }
     }
 
-    // Remaining elements beyond the unique region are irrelevant
-    // for correctness, but here they are explicitly set to 0.
+    // Remaining elements beyond the unique region are irrelevant for correctness, but here they are explicitly set to 0.
     for (int i = uniqueIndex + 1; i < N; i++)
         nums[i] = 0;
 
