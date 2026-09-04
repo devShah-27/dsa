@@ -2,7 +2,7 @@
 // PROBLEM
 // - Given a weighted, undirected graph of n vertices (1 to n) and m edges, find the shortest path between vertex 1 and vertex n.
 // - Return a list whose first element is the total path weight followed by the sequence of nodes.
-// If no path exists, return {-1}.
+// - If no path exists, return {-1}.
 // ==================================================
 
 #include <bits/stdc++.h>
