@@ -18,8 +18,7 @@ using namespace std;
 // - Words that share a prefix share the same path.
 // - Each node keeps prefixCount, the number of inserted words passing through that node.
 // - Each node also keeps endCount, the number of inserted words that finish exactly at that node.
-// - insert() increments prefixCount along the path and endCount at the last node. 
-// - erase() reverses exactly those updates.
+// - insert() increments prefixCount along the path and endCount at the last node and erase() reverses exactly those updates.
 // - Counting queries walk the path and read one counter.
 // - endCount gives exact matches, prefixCount gives prefix matches.
 //
