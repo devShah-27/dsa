@@ -58,3 +58,11 @@ main
 build/
 bin/
 out/
+
+# Zed editor folder
+.zed/
+
+# clangd config and cache
+.clangd
+.cache/
+compile_commands.json
