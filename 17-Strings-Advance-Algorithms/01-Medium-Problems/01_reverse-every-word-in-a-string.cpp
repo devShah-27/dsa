@@ -23,46 +23,46 @@ using namespace std;
 // ==================================================
 
 string reverseWords(string s) {
-  int n = s.size();
+    int n = s.size();
 
-  string res = "";
+    string res = "";
 
-  int i = 0;
+    int i = 0;
 
-  // Stores every word in its original left-to-right order
-  vector<string> temp;
+    // Stores every word in its original left-to-right order
+    vector<string> temp;
 
-  while (i < n) {
-    // Skip leading and repeated spaces between words
-    while (i < n && s[i] == ' ')
-      i++;
+    while (i < n) {
+        // Skip leading and repeated spaces between words
+        while (i < n && s[i] == ' ')
+            i++;
 
-    // Only spaces remained, so there are no more words
-    if (i == n)
-      break;
+        // Only spaces remained, so there are no more words
+        if (i == n)
+            break;
 
-    int start = i;
+        int start = i;
 
-    // Move 'i' to the end of the current word
-    while (i < n && s[i] != ' ')
-      i++;
+        // Move 'i' to the end of the current word
+        while (i < n && s[i] != ' ')
+            i++;
 
-    int end = i - 1;
+        int end = i - 1;
 
-    // Extract the word s[start..end] and store it
-    temp.push_back(s.substr(start, end - start + 1));
-  }
+        // Extract the word s[start..end] and store it
+        temp.push_back(s.substr(start, end - start + 1));
+    }
 
-  // Build the result by reading the words in reverse order
-  for (int i = temp.size() - 1; i >= 0; i--) {
-    res += temp[i];
+    // Build the result by reading the words in reverse order
+    for (int i = temp.size() - 1; i >= 0; i--) {
+        res += temp[i];
 
-    // Add a separator after every word except the last one appended
-    if (i != 0)
-      res += ' ';
-  }
+        // Add a separator after every word except the last one appended
+        if (i != 0)
+            res += ' ';
+    }
 
-  return res;
+    return res;
 }
 
 // ==================================================
@@ -79,59 +79,59 @@ string reverseWords(string s) {
 // ==================================================
 
 string reverseWords(string s) {
-  int n = s.size();
+    int n = s.size();
 
-  // Step 1: Reverse the whole string to flip the order of the words
-  reverse(s.begin(), s.end());
+    // Step 1: Reverse the whole string to flip the order of the words
+    reverse(s.begin(), s.end());
 
-  // 'j' reads from the original position, 'i' writes the compacted result
-  int i = 0, j = 0, start = 0, end = 0;
+    // 'j' reads from the original position, 'i' writes the compacted result
+    int i = 0, j = 0, start = 0, end = 0;
 
-  while (j < n) {
-    // Skip leading and repeated spaces in the read region
-    while (j < n && s[j] == ' ')
-      j++;
+    while (j < n) {
+        // Skip leading and repeated spaces in the read region
+        while (j < n && s[j] == ' ')
+            j++;
 
-    // No more words remain to process
-    if (j == n)
-      break;
+        // No more words remain to process
+        if (j == n)
+            break;
 
-    // Mark where the current word begins in the write region
-    start = i;
+        // Mark where the current word begins in the write region
+        start = i;
 
-    // Copy the current word forward to the write position
-    while (j < n && s[j] != ' ') {
-      s[i] = s[j];
-      i++;
-      j++;
+        // Copy the current word forward to the write position
+        while (j < n && s[j] != ' ') {
+            s[i] = s[j];
+            i++;
+            j++;
+        }
+
+        end = i - 1;
+
+        // Step 2: Reverse this single word to restore its correct orientation
+        reverse(s.begin() + start, s.begin() + end + 1);
+
+        // Add a single separator only if more input remains to be read
+        if (j < n) {
+            s[i] = ' ';
+            i++;
+        }
     }
 
-    end = i - 1;
+    // Remove the trailing space left when the input ended with spaces
+    if (i > 0 && s[i - 1] == ' ')
+        i--;
 
-    // Step 2: Reverse this single word to restore its correct orientation
-    reverse(s.begin() + start, s.begin() + end + 1);
-
-    // Add a single separator only if more input remains to be read
-    if (j < n) {
-      s[i] = ' ';
-      i++;
-    }
-  }
-
-  // Remove the trailing space left when the input ended with spaces
-  if (i > 0 && s[i - 1] == ' ')
-    i--;
-
-  // Keep only the compacted portion of the string
-  return s.substr(0, i);
+    // Keep only the compacted portion of the string
+    return s.substr(0, i);
 }
 
 int main() {
-  string s = " amazing coding skills ";
+    string s = " amazing coding skills ";
 
-  // Run the reversal and print the input and result for comparison
-  string ans = reverseWords(s);
+    // Run the reversal and print the input and result for comparison
+    string ans = reverseWords(s);
 
-  cout << "Input string: " << s << endl;
-  cout << "After reversing every word: " << ans << endl;
+    cout << "Input string: " << s << endl;
+    cout << "After reversing every word: " << ans << endl;
 }
